@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/home_list_item_img"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="120dp"
+        android:gravity="center"
+        tools:src="@drawable/a001"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/home_list_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:maxLines="2"
+            android:textStyle="bold"
+            tools:text="iPhone 13再爆猛料：不止刘海屏有望缩小，超大杯或将搭载LTPO屏"/>
+        <TextView
+            android:id="@+id/home_list_item_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:text="按照去年iPhone 12系列的发布时间节点来看，如今距离苹果新一代iPhone发布的时间还有很长一段时间，但这并未能够阻挡消费者对于iPhone 13系列的关注热情"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+
+            <TextView
+                android:id="@+id/home_list_item_commentNum"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                tools:text="评论总数：300"/>
+            <TextView
+                android:id="@+id/home_list_item_publishDate"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                tools:text="2022.11.22"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
