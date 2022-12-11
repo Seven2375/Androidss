@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/my_img_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        tools:src="@drawable/wad"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/my_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="王小明"
+        android:textSize="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/my_img_avatar"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:layout_below="@+id/my_tv_name"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="40dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/my_btn_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26dp"
+            android:text="个人信息"/>
+        <Button
+            android:id="@+id/my_btn_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26dp"
+            android:text="订单列表"/>
+        <Button
+            android:id="@+id/my_btn_repwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26dp"
+            android:text="修改密码"/>
+        <Button
+            android:id="@+id/my_btn_idea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26dp"
+            android:text="意见反馈"/>
+        <Button
+            android:id="@+id/my_btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="26dp"
+            android:textColor="#ff0000"
+            android:text="退出当前账号"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
