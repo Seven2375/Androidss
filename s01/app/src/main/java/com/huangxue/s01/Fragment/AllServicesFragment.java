@@ -1,6 +1,5 @@
 package com.huangxue.s01.Fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,21 +8,56 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.huangxue.s01.Adatper.MyHomeGridAdapter;
+import com.huangxue.s01.Beans.ServicesListBean;
 import com.huangxue.s01.R;
+import com.huangxue.s01.Utils.WorkOkHttp;
+
+import java.io.IOException;
+import java.util.List;
 
 public class AllServicesFragment extends Fragment {
-
+    private final static String mainUrl = "http://124.93.196.45:10001";
     protected View mView;
-    protected Activity mActivity;
+    private List<ServicesListBean.RowsEntity> gridlist;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mActivity = getActivity();
-        mView = inflater.inflate(R.layout.all_services_fragment,container,false);
+        mView = inflater.inflate(R.layout.fragment_all_services,container,false);
+        new Thread(()->{try {
+            init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }}).start();
+
 
         return mView;
+
+    }
+
+    private void init() throws IOException {
+        gridlist = WorkOkHttp.getHomeServicesListDatas(mainUrl + "/prod-api/api/service/list");
+        getActivity().runOnUiThread(()->{
+            initGrid();
+        });
+    }
+
+    private void initGrid(){
+        RecyclerView gridview = mView.findViewById(R.id.all_services_gridview);
+        MyHomeGridAdapter gridAdapter = new MyHomeGridAdapter(getActivity(), gridlist,2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),5);
+        gridview.setLayoutManager(gridLayoutManager);
+        gridview.setAdapter(gridAdapter);
+        gridAdapter.setOnItemClickListener(new MyHomeGridAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void onRecyItemClick(int position) {
+
+            }
+        });
 
     }
 }

@@ -19,10 +19,12 @@ public class MyHomeGridAdapter extends RecyclerView.Adapter<MyHomeGridAdapter.My
 
     private Context mContext;
     private List<ServicesListBean.RowsEntity> datalist;
+    private int id;
 
-    public MyHomeGridAdapter(Context mContext, List<ServicesListBean.RowsEntity> datalist) {
+    public MyHomeGridAdapter(Context mContext, List<ServicesListBean.RowsEntity> datalist,int id) {
         this.mContext = mContext;
         this.datalist = datalist;
+        this.id = id;
     }
 
 
@@ -30,7 +32,7 @@ public class MyHomeGridAdapter extends RecyclerView.Adapter<MyHomeGridAdapter.My
     @Override
     public MyHomeGridAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = View.inflate(mContext, R.layout.home_grid_item, null);
+        View view = View.inflate(mContext, R.layout.item_home_grid, null);
 
         return new MyHolder(view);
     }
@@ -47,7 +49,12 @@ public class MyHomeGridAdapter extends RecyclerView.Adapter<MyHomeGridAdapter.My
 
     @Override
     public int getItemCount() {
-        return 9;
+        if (id == 1){
+            return 9;
+        }else {
+            return datalist.size();
+        }
+
     }
 
     public class MyHolder extends RecyclerView.ViewHolder{
@@ -61,6 +68,23 @@ public class MyHomeGridAdapter extends RecyclerView.Adapter<MyHomeGridAdapter.My
             img = itemView.findViewById(R.id.home_grid_item_img);
             desc = itemView.findViewById(R.id.home_grid_item_desc);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mOnItemClickListener != null){
+                        mOnItemClickListener.onRecyItemClick(getAdapterPosition());
+                    }
+                }
+            });
+
         }
+    }
+
+    public interface OnRecyclerItemClickListener{
+        void onRecyItemClick(int position);
+    }
+    private OnRecyclerItemClickListener mOnItemClickListener;
+    public void setOnItemClickListener(OnRecyclerItemClickListener onItemClickListener){
+        mOnItemClickListener = onItemClickListener;
     }
 }

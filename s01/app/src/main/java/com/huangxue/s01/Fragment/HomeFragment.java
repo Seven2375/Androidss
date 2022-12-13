@@ -3,14 +3,10 @@ package com.huangxue.s01.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +23,7 @@ import com.huangxue.s01.Beans.ServicesListBean;
 import com.huangxue.s01.Beans.NewsListBean;
 import com.huangxue.s01.NewsDetailsActivity;
 import com.huangxue.s01.R;
+import com.huangxue.s01.StopListActivity;
 import com.huangxue.s01.Utils.WorkOkHttp;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -37,7 +34,7 @@ import com.youth.banner.loader.ImageLoader;
 import java.io.IOException;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements OnBannerListener {
+public class HomeFragment extends Fragment implements OnBannerListener, MyHomeGridAdapter.OnRecyclerItemClickListener {
 
     private final static String mainUrl = "http://124.93.196.45:10001";
     private List<String> imgUrlList;
@@ -53,7 +50,7 @@ public class HomeFragment extends Fragment implements OnBannerListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.home_fragment, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
         try {
             initUI();
@@ -93,7 +90,9 @@ public class HomeFragment extends Fragment implements OnBannerListener {
             listAdapter.setOnItemClickListener(new MyHomeListAdapter.OnRecyclerItemClickListener() {
                 @Override
                 public void onClick(int position) {
-                    Log.e("wwwwwwwwwww","点击的是："+position);
+                    Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+                    intent.putExtra("id",list_rows.get(position).getId());
+                    startActivity(intent);
                 }
             });
 
@@ -101,11 +100,11 @@ public class HomeFragment extends Fragment implements OnBannerListener {
 
         private void initGrid(){
             gridview = view.findViewById(R.id.home_grid_view);
-            MyHomeGridAdapter gridAdapter = new MyHomeGridAdapter(getActivity(), grid_rows);
+            MyHomeGridAdapter gridAdapter = new MyHomeGridAdapter(getActivity(), grid_rows,1);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),5);
             gridview.setLayoutManager(gridLayoutManager);
             gridview.setAdapter(gridAdapter);
-
+            gridAdapter.setOnItemClickListener(this);
 
         }
 
@@ -127,6 +126,16 @@ public class HomeFragment extends Fragment implements OnBannerListener {
         Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
         intent.putExtra("id",id);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRecyItemClick(int position) {
+
+        switch (grid_rows.get(position).getId()){
+            case 17:
+                startActivity(new Intent(getActivity(), StopListActivity.class));
+                break;
+        }
     }
 
     private class MyImgLoader extends ImageLoader {

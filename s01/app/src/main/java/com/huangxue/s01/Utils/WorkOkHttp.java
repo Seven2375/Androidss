@@ -1,18 +1,13 @@
 package com.huangxue.s01.Utils;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.huangxue.s01.Beans.BannerListBean;
 import com.huangxue.s01.Beans.NewsContentBean;
-import com.huangxue.s01.Beans.ServicesListBean;
 import com.huangxue.s01.Beans.NewsListBean;
-import com.huangxue.s01.NewsDetailsActivity;
-import com.youth.banner.Banner;
+import com.huangxue.s01.Beans.ServicesListBean;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,11 +15,18 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class WorkOkHttp {
 
     public static final OkHttpClient okHttpClient = new OkHttpClient();
     private final static String Url = "http://124.93.196.45:10001";
+
+    public static String get(String path) throws IOException {
+        Request request = new Request.Builder().url(Url + path).build();
+        String string = okHttpClient.newCall(request).execute().body().string();
+        return string;
+    }
 
     public static List<ServicesListBean.RowsEntity> getHomeServicesListDatas(String url) throws IOException {
         Request request = new Request.Builder().url(url).build();

@@ -1,10 +1,8 @@
 package com.huangxue.s01.Adatper;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,7 +28,7 @@ public class MyHomeListAdapter extends RecyclerView.Adapter<MyHomeListAdapter.My
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(mContext, R.layout.home_list_item, null);
+        View view = View.inflate(mContext, R.layout.item_home_list, null);
         return new MyHolder(view);
     }
 
