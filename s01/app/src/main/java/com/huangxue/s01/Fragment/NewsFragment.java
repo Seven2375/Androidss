@@ -12,8 +12,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.huangxue.s01.Adatper.NewsClassPagerFragment;
+import com.huangxue.s01.Beans.NewsClassBean;
 import com.huangxue.s01.R;
+import com.huangxue.s01.Utils.WorkOkHttp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +27,10 @@ public class NewsFragment extends Fragment {
 
     protected View mView;
     private ViewPager viewpager;
-    private TableLayout table;
+    private TabLayout table;
+    private List<Fragment> fragmentList;
+    private List<String> titleList;
+    private List<NewsClassBean.DataEntity> data;
 
     @Nullable
     @Override
@@ -40,13 +49,33 @@ public class NewsFragment extends Fragment {
 
         viewpager = view.findViewById(R.id.news_viewpager);
         table = view.findViewById(R.id.news_table);
-        initData();
+        new Thread(()->{try {
+            initHttp();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }}).start();
+
     }
 
     private void initData() {
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(NewsClassFragment.newInstance(20));
-        fragmentList.add(NewsClassFragment.newInstance(21));
+        fragmentList = new ArrayList<>();
+        titleList = new ArrayList<>();
+        for (int i = 0; i < data.size(); i++) {
+            fragmentList.add(NewsClassFragment.newInstance(data.get(i).getId()));
+            titleList.add(data.get(i).getName());
+        }
+        getActivity().runOnUiThread(()->{
+            viewpager.setAdapter(new NewsClassPagerFragment(getChildFragmentManager(),fragmentList,titleList));
+            table.setupWithViewPager(viewpager);
+        });
+
+    }
+
+    private void initHttp() throws IOException {
+        String body = WorkOkHttp.get("/prod-api/press/category/list");
+        Gson gson = new Gson();
+        data = gson.fromJson(body, NewsClassBean.class).getData();
+        initData();
 
     }
 

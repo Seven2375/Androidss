@@ -8,55 +8,44 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
+import com.huangxue.s01.Adatper.MainPagerFragment;
 import com.huangxue.s01.Fragment.AllServicesFragment;
 import com.huangxue.s01.Fragment.HomeFragment;
 import com.huangxue.s01.Fragment.MyFragment;
 import com.huangxue.s01.Fragment.NewsFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity{
+
+    private ViewPager viewpager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        replaceFragment(new HomeFragment());
-        findViewById(R.id.home_page).setOnClickListener(this);
-        findViewById(R.id.all_page).setOnClickListener(this);
-        findViewById(R.id.xinwen_page).setOnClickListener(this);
-        findViewById(R.id.my_page).setOnClickListener(this);
-
+        initView();
+        initData();
     }
 
-    private void replaceFragment(Fragment fragment) {
-        //使用getSupportFragmentManager获取一个fragment管理类
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        //但是切换fragment是需要beginTransaction来完成
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        //直接使用replace方法来替换掉fragment
-        transaction.replace(R.id.fragment, fragment);
-        //提交事件才能执行
-        transaction.commit();
+    private void initData() {
+        List<Fragment> fragmentList = new ArrayList<>();
+        fragmentList.add(new HomeFragment());
+        fragmentList.add(new AllServicesFragment());
+        fragmentList.add(new NewsFragment());
+//        fragmentList.add(new MyFragment());
 
+        MainPagerFragment mainPagerFragment = new MainPagerFragment(getSupportFragmentManager(), fragmentList);
+        viewpager.setAdapter(mainPagerFragment);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.home_page:
-                replaceFragment(new HomeFragment());
-                break;
-            case R.id.all_page:
-                replaceFragment(new AllServicesFragment());
-                break;
-            case R.id.xinwen_page:
-                replaceFragment(new NewsFragment());
-                break;
-            case R.id.my_page:
-                replaceFragment(new MyFragment());
-                break;
-        }
+    private void initView() {
+        viewpager = findViewById(R.id.main_viewpager);
+
     }
 
 }
