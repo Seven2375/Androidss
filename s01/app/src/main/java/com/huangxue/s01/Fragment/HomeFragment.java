@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.huangxue.s01.Adatper.MyHomeGridAdapter;
-import com.huangxue.s01.Adatper.MyHomeListAdapter;
+import com.huangxue.s01.Adatper.MyNewsListAdapter;
 import com.huangxue.s01.Beans.BannerListBean;
 import com.huangxue.s01.Beans.ServicesListBean;
 import com.huangxue.s01.Beans.NewsListBean;
@@ -52,6 +53,9 @@ public class HomeFragment extends Fragment implements OnBannerListener, MyHomeGr
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        Toolbar toolbar = view.findViewById(R.id.toolbar_noback);
+        toolbar.setTitle("首页");
+
         try {
             initUI();
         } catch (IOException e) {
@@ -83,11 +87,11 @@ public class HomeFragment extends Fragment implements OnBannerListener, MyHomeGr
 
         private void initList(){
             listview = view.findViewById(R.id.home_list_view);
-            MyHomeListAdapter listAdapter = new MyHomeListAdapter(getActivity(), list_rows);
+            MyNewsListAdapter listAdapter = new MyNewsListAdapter(getActivity(), list_rows);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             listview.setLayoutManager(linearLayoutManager);
             listview.setAdapter(listAdapter);
-            listAdapter.setOnItemClickListener(new MyHomeListAdapter.OnRecyclerItemClickListener() {
+            listAdapter.setOnItemClickListener(new MyNewsListAdapter.OnRecyclerItemClickListener() {
                 @Override
                 public void onClick(int position) {
                     Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);

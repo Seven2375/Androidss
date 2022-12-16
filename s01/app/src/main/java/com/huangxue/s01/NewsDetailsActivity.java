@@ -29,7 +29,7 @@ public class NewsDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_noback);
+        Toolbar toolbar = findViewById(R.id.toolbar_back);
         toolbar.setTitle("新闻详情");
         toolbar.setNavigationOnClickListener(v->finish());
 

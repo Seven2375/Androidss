@@ -1,6 +1,7 @@
 package com.huangxue.s01;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -29,6 +30,10 @@ public class StopListActivity extends AppCompatActivity implements MyStopListAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_list);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_back);
+        toolbar.setTitle("附近停车场");
+        toolbar.setNavigationOnClickListener(v->finish());
 
         new Thread(()->{try {
             init();

@@ -18,9 +18,9 @@
         <activity android:name=".StopListActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".StartActivity" />
         <activity android:name=".NewsDetailsActivity" />
-        <activity android:name=".StartActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

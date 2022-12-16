@@ -2,44 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="50dp"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/myinfo_img_avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        tools:src="@drawable/wad"/>
+    <include layout="@layout/item_toolbar_back"/>
 
-    <EditText
-        android:id="@+id/myinfo_et_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:hint="王小明"
-        android:textSize="25dp"
-        android:layout_marginTop="20dp"/>
-    <EditText
-        android:id="@+id/myinfo_et_sex"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:hint="王小明"
-        android:textSize="25dp"
-        android:layout_marginTop="20dp"/>
-    <EditText
-        android:id="@+id/myinfo_et_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:hint="王小明"
-        android:textSize="25dp"
-        android:layout_marginTop="20dp"/>
-    <Button
-        android:id="@+id/myinfo_btn_update_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:layout_marginTop="20dp"
-        android:text="修改信息"/>
+        android:orientation="vertical"
+        android:padding="50dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/myinfo_img_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:src="@drawable/wad"/>
+
+        <EditText
+            android:id="@+id/myinfo_et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:hint="王小明"
+            android:textSize="25dp"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:id="@+id/myinfo_et_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:hint="王小明"
+            android:textSize="25dp"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:id="@+id/myinfo_et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:hint="王小明"
+            android:textSize="25dp"
+            android:layout_marginTop="20dp"/>
+        <Button
+            android:id="@+id/myinfo_btn_update_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:layout_marginTop="20dp"
+            android:text="修改信息"/>
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

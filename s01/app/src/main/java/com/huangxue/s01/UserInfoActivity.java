@@ -1,10 +1,12 @@
 package com.huangxue.s01;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -39,6 +41,10 @@ public class UserInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_back);
+        toolbar.setTitle("个人信息");
+        toolbar.setNavigationOnClickListener(view -> finish());
 
         initUI();
 

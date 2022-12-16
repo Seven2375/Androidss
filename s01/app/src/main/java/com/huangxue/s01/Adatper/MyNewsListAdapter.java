@@ -15,12 +15,12 @@ import com.huangxue.s01.R;
 
 import java.util.List;
 
-public class MyHomeListAdapter extends RecyclerView.Adapter<MyHomeListAdapter.MyHolder> {
+public class MyNewsListAdapter extends RecyclerView.Adapter<MyNewsListAdapter.MyHolder> {
 
     private Context mContext;
     private List<NewsListBean.RowsEntity> datalist;
 
-    public MyHomeListAdapter(Context mContext, List<NewsListBean.RowsEntity> datalist) {
+    public MyNewsListAdapter(Context mContext, List<NewsListBean.RowsEntity> datalist) {
         this.mContext = mContext;
         this.datalist = datalist;
     }

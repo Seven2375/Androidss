@@ -6,12 +6,7 @@
     android:orientation="vertical"
     android:layout_gravity="center">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:text="全部服务" />
+    <include layout="@layout/item_toolbar_noback"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all_services_gridview"

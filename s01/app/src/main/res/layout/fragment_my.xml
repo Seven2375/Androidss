@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     android:layout_gravity="center">
 
+
+    <include layout="@layout/item_toolbar_noback"/>
+
     <ImageView
         android:id="@+id/my_img_avatar"
         android:layout_width="100dp"

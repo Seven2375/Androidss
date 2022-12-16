@@ -6,15 +6,15 @@
     android:orientation="vertical"
     android:layout_gravity="center">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:text="新闻" />
+    <include layout="@layout/item_toolbar_noback"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/all_news_listview"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/news_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/news_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
