@@ -1,5 +1,6 @@
 package com.huangxue.s01.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.huangxue.s01.Adatper.MyNewsListAdapter;
 import com.huangxue.s01.Beans.NewsListBean;
+import com.huangxue.s01.NewsInfoActivity;
 import com.huangxue.s01.R;
 import com.huangxue.s01.Utils.WorkOkHttp;
 
@@ -52,15 +54,13 @@ public class NewsClassFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         newsClassList = view.findViewById(R.id.news_class_list);
-        new Thread(()->{try {
+        new Thread(()->{
             initHttp();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }}).start();
+        }).start();
 
     }
 
-    private void initHttp() throws IOException {
+    private void initHttp(){
         String body = WorkOkHttp.get("/prod-api/press/press/list?type=" + id);
         Gson gson = new Gson();
         rows = gson.fromJson(body, NewsListBean.class).getRows();
@@ -74,5 +74,13 @@ public class NewsClassFragment extends Fragment {
         MyNewsListAdapter adapter = new MyNewsListAdapter(getActivity(), rows);
         newsClassList.setLayoutManager(new LinearLayoutManager(getActivity()));
         newsClassList.setAdapter(adapter);
+        adapter.setOnItemClickListener(new MyNewsListAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), NewsInfoActivity.class);
+                intent.putExtra("id",rows.get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
 }

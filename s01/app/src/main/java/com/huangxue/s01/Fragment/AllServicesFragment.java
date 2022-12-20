@@ -1,5 +1,6 @@
 package com.huangxue.s01.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.huangxue.s01.Adatper.MyHomeGridAdapter;
 import com.huangxue.s01.Beans.ServicesListBean;
 import com.huangxue.s01.R;
+import com.huangxue.s01.StopListActivity;
 import com.huangxue.s01.Utils.WorkOkHttp;
 
 import java.io.IOException;
@@ -60,7 +62,11 @@ public class AllServicesFragment extends Fragment {
         gridAdapter.setOnItemClickListener(new MyHomeGridAdapter.OnRecyclerItemClickListener() {
             @Override
             public void onRecyItemClick(int position) {
-
+                switch (gridlist.get(position).getId()){
+                    case 17:
+                        startActivity(new Intent(getActivity(), StopListActivity.class));
+                        break;
+                }
             }
         });
 

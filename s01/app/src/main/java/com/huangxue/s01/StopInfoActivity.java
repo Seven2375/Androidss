@@ -41,11 +41,7 @@ public class StopInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
         initUI();
-        new Thread(()->{try {
-            init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }}).start();
+        new Thread(()->init()).start();
 
     }
 
@@ -60,7 +56,7 @@ public class StopInfoActivity extends AppCompatActivity {
         priceCaps = findViewById(R.id.stop_info_priceCaps);
     }
 
-    private void init() throws IOException {
+    private void init(){
 
         String body = WorkOkHttp.get(Url + id);
         Gson gons = new Gson();

@@ -9,7 +9,7 @@
         android:id="@+id/toolbar_noback"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#03A9F4"
+        android:background="@color/white"
         tools:title="标题"/>
 
 </LinearLayout>

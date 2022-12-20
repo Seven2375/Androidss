@@ -13,13 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StopRecordActivity"></activity>
+        <activity android:name=".MyOrderActivity"></activity>
+        <activity android:name=".BusSubmitActivity" />
+        <activity android:name=".BusUserActivity" />
+        <activity android:name=".BusDateActivity" />
+        <activity android:name=".BusInfoActivity" />
+        <activity android:name=".BusHomeActivity" />
+        <activity android:name=".MedicalCardAddActivity" />
+        <activity android:name=".MedicalCardActivity" />
+        <activity android:name=".HospitalInfoActivity" />
+        <activity android:name=".HospitalHomeActivity" />
+        <activity android:name=".LookRoomInfoActivity" />
+        <activity android:name=".LookRoomHomeActivity" />
+        <activity android:name=".StopRecordActivity" />
         <activity android:name=".StopInfoActivity" />
         <activity android:name=".StopListActivity" />
         <activity android:name=".UserInfoActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name=".NewsDetailsActivity" />
+        <activity android:name=".NewsInfoActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

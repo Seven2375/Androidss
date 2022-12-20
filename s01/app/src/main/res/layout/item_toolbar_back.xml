@@ -9,7 +9,7 @@
         android:id="@+id/toolbar_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C6C6C6"
+        android:background="@color/white"
         app:navigationIcon="@drawable/ic_baseline_chevron_left_24"
         tools:title="标题"/>
 

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".StopRecordActivity">
 
     <include layout="@layout/item_toolbar_back"/>
@@ -19,26 +20,34 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:gravity="center"
                     android:id="@+id/stop_record_et_statime"
                     android:layout_width="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:hint="入场时间"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="——"/>
                 <EditText
+                    android:gravity="center"
                     android:id="@+id/stop_record_et_endtime"
                     android:layout_width="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:hint="出场时间"/>
                 <Button
+                    android:background="@color/white"
                     android:id="@+id/stop_record_btn_look"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="搜索"/>
 
@@ -52,6 +61,9 @@
                 android:id="@+id/stop_record_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@drawable/obk"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:text="查看更多"/>
         </LinearLayout>
     </ScrollView>

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,10 +18,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.huangxue.s01.Beans.MyInfoBean;
+import com.huangxue.s01.MyOrderActivity;
 import com.huangxue.s01.R;
 import com.huangxue.s01.UserInfoActivity;
+import com.huangxue.s01.Utils.WorkOkHttp;
 
 import java.io.IOException;
 
@@ -29,11 +37,11 @@ import okhttp3.Request;
 public class MyFragment extends Fragment {
 
     protected View mView;
-    private String name;
-    private String avatar_url;
-    private String Url = "http://124.93.196.45:10001";
     private TextView tv_name;
     private ImageView img_avatar;
+    private String token;
+    private MyInfoBean.UserEntity userData;
+    private String Url = "http://124.93.196.45:10001";
 
     @Nullable
     @Override
@@ -44,41 +52,52 @@ public class MyFragment extends Fragment {
         Toolbar toolbar = mView.findViewById(R.id.toolbar_noback);
         toolbar.setTitle("我的信息");
 
-        initUI();
+        SharedPreferences sp = getActivity().getSharedPreferences("token", Context.MODE_PRIVATE);
+        token = sp.getString("token", "");
 
-        new Thread(()->{try {
+        initView();
+        new Thread(()->{
             initHttp();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }}).start();
+        }).start();
 
         return mView;
 
     }
 
-    private void initUI() {
+    private void initView() {
         tv_name = mView.findViewById(R.id.my_tv_name);
         img_avatar = mView.findViewById(R.id.my_img_avatar);
         mView.findViewById(R.id.my_btn_info).setOnClickListener(v->{
             startActivity(new Intent(getActivity(), UserInfoActivity.class));
         });
+        mView.findViewById(R.id.my_btn_order).setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), MyOrderActivity.class));
+        });
     }
 
-    private void initHttp() throws IOException {
+    private void initHttp(){
 
-        SharedPreferences sp = getActivity().getSharedPreferences("token", Context.MODE_PRIVATE);
-        String token = sp.getString("token", "");
-        Request request = new Request.Builder()
-                .header("Authorization",token)
-                .url("http://124.93.196.45:10001/prod-api/api/common/user/getInfo").build();
-        OkHttpClient okHttpClient = new OkHttpClient();
-        String string = okHttpClient.newCall(request).execute().body().string();
-        JsonObject asJsonObject = new JsonParser().parse(string).getAsJsonObject();
-        name = asJsonObject.get("user").getAsJsonObject().get("nickName").getAsString();
-        avatar_url = asJsonObject.get("user").getAsJsonObject().get("avatar").getAsString();
+        String body = WorkOkHttp.get("/prod-api/api/common/user/getInfo", token);
+        Gson gson = new Gson();
+        MyInfoBean myInfoBean = gson.fromJson(body, MyInfoBean.class);
+        int code = myInfoBean.getCode();
+        userData = myInfoBean.getUser();
+        if (code == 200){
+            initData();
+        }else{
+            Toast.makeText(getActivity(), "token已失效请重新登录", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initData() {
+
         getActivity().runOnUiThread(()->{
-            tv_name.setText(name);
-            Glide.with(getActivity()).load(avatar_url).into(img_avatar);
+            tv_name.setText(userData.getNickName());
+            Glide.with(getActivity())
+                    .load(userData.getAvatar())
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(1000)))
+                    .into(img_avatar);
         });
+
     }
 }

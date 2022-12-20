@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/grey"
     tools:context=".StopListActivity">
 
     <include layout="@layout/item_toolbar_back"/>
@@ -13,6 +14,8 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -23,9 +26,12 @@
                 android:layout_height="wrap_content"/>
 
             <Button
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:id="@+id/stop_list_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@drawable/obk"
                 android:text="查看更多"/>
 
         </LinearLayout>

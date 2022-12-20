@@ -32,7 +32,7 @@ public class MyHomeGridAdapter extends RecyclerView.Adapter<MyHomeGridAdapter.My
     @Override
     public MyHomeGridAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = View.inflate(mContext, R.layout.item_home_grid, null);
+        View view = View.inflate(mContext, R.layout.item_services_grid, null);
 
         return new MyHolder(view);
     }
@@ -41,16 +41,25 @@ public class MyHomeGridAdapter extends RecyclerView.Adapter<MyHomeGridAdapter.My
     public void onBindViewHolder(@NonNull MyHomeGridAdapter.MyHolder holder, int position) {
         String Url = "http://124.93.196.45:10001";
         ServicesListBean.RowsEntity data = datalist.get(position);
-        Glide.with(mContext)
-                .load(Url+data.getImgUrl())
-                .into(holder.img);
-        holder.desc.setText(data.getServiceName());
+        if (position==9){
+            Glide.with(mContext)
+                    .load(Url+data.getImgUrl())
+                    .into(holder.img);
+            holder.desc.setText("全部服务");
+        }else {
+            Glide.with(mContext)
+                    .load(Url+data.getImgUrl())
+                    .into(holder.img);
+            holder.desc.setText(data.getServiceName());
+        }
+
+
     }
 
     @Override
     public int getItemCount() {
         if (id == 1){
-            return 9;
+            return 10;
         }else {
             return datalist.size();
         }

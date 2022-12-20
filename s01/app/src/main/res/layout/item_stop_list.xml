@@ -2,90 +2,103 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
+    android:background="@color/grey"
+    android:padding="5dp"
     tools:context=".StopListActivity">
 
-    <RelativeLayout
-        android:id="@+id/stop_list_item_rl"
-        android:layout_gravity="center"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/stop_list_item_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:src="@drawable/wad"/>
-        <TextView
-            android:gravity="center"
-            android:layout_below="@+id/stop_list_item_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="查看停车记录"/>
-
-    </RelativeLayout>
-
     <LinearLayout
-        android:id="@+id/stop_list_item_ll"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical"
+        android:background="@drawable/obk"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_marginTop="8dp"
-            android:id="@+id/stop_list_item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            tools:text="停车场名停车场名"/>
+        <RelativeLayout
+            android:id="@+id/stop_list_item_rl"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:id="@+id/stop_list_item_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:src="@drawable/wad"/>
+            <TextView
+                android:gravity="center"
+                android:layout_below="@+id/stop_list_item_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="点击图片查看停车记录"/>
+
+        </RelativeLayout>
 
         <LinearLayout
-            android:padding="4dp"
+            android:id="@+id/stop_list_item_ll"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:orientation="vertical"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_marginTop="8dp"
-                android:id="@+id/stop_list_item_address"
+                android:layout_marginTop="5dp"
+                android:id="@+id/stop_list_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                tools:text="地址地址地址地址"/>
-            <TextView
-                android:layout_marginTop="8dp"
-                android:id="@+id/stop_list_item_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                tools:text="价格"/>
+                android:textSize="25sp"
+                tools:text="停车场名停车场名"/>
+
             <LinearLayout
-                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/stop_list_item_number"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/stop_list_item_address"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    tools:text="空位数量"/>
+                    tools:text="地址地址地址地址"/>
                 <TextView
-                    android:id="@+id/stop_list_item_dis"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/stop_list_item_price"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    tools:text="距离：12312"/>
-            </LinearLayout>
+                    android:textSize="20sp"
+                    tools:text="价格"/>
+                <LinearLayout
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/stop_list_item_number"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        tools:text="空位数量"/>
+                    <TextView
+                        android:id="@+id/stop_list_item_dis"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        tools:text="距离：12312"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+
+
 
 </LinearLayout>

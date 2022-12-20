@@ -100,17 +100,14 @@ public class StopRecordActivity extends AppCompatActivity {
             endtime = et_endtime.getText().toString();
             statime = et_statime.getText().toString();
             new Thread(()->{
-                try {
-                    String s = WorkOkHttp.get(Url + urlParkName + name + "&" + "entryTime=" + statime + "&" + "outTime=" + endtime);
-                    Gson gson = new Gson();
-                    rows = gson.fromJson(s, StopRecordBean.class).getRows();
-                    runOnUiThread(()->{
-                        btn.setVisibility(View.GONE);
-                        initList(1);
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                String s = WorkOkHttp.get(Url + urlParkName + name + "&" + "entryTime=" + statime + "&" + "outTime=" + endtime);
+                Gson gson = new Gson();
+                rows = gson.fromJson(s, StopRecordBean.class).getRows();
+                runOnUiThread(()->{
+                    btn.setVisibility(View.GONE);
+                    initList(1);
+                });
             }).start();
 
         });

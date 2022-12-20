@@ -1,30 +1,41 @@
 package com.huangxue.s01;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.huangxue.s01.Beans.UserInfoBean;
+import com.huangxue.s01.Beans.MyInfoBean;
+import com.huangxue.s01.Utils.WorkOkHttp;
 
-import java.io.IOException;
+import java.io.File;
 
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
-public class UserInfoActivity extends AppCompatActivity {
+public class UserInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView img_avatar;
     private EditText et_name;
@@ -37,6 +48,11 @@ public class UserInfoActivity extends AppCompatActivity {
     private SharedPreferences sp;
     private String token;
     private OkHttpClient okHttpClient = new OkHttpClient();
+    private MyInfoBean.UserEntity userInfoData;
+    private LinearLayout updateImg;
+    private PopupWindow popupWindow;
+    private String picPath;
+    private String Url = "http://124.93.196.45:10001";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,68 +62,132 @@ public class UserInfoActivity extends AppCompatActivity {
         toolbar.setTitle("个人信息");
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        initUI();
+        sp = getSharedPreferences("token", Context.MODE_PRIVATE);
+        token = sp.getString("token", "");
 
-        new Thread(()->{try {
+        initView();
+
+        new Thread(()->{
             initHttp();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }}).start();
+        }).start();
 
-        findViewById(R.id.myinfo_btn_update_info).setOnClickListener(v->{
-            new Thread(()->{try {
-                initUpdateInfo();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }}).start();
 
-        });
     }
 
-    private void initUpdateInfo() throws IOException {
+    private void UpdateInfo(){
         JsonObject json_body = new JsonObject();
         json_body.addProperty("nickName",et_name.getText().toString());
         json_body.addProperty("phonenumber",et_phone.getText().toString());
         json_body.addProperty("sex",et_sex.getText().toString().equals("男") ? "0":"1");
-        MediaType json_type = MediaType.get("application/json;charset=utf-8");
-        Request request = new Request.Builder()
-                .url("http://124.93.196.45:10001/prod-api/api/common/user")
-                .header("Authorization",token)
-                .put(RequestBody.create(json_type, String.valueOf(json_body))).build();
-        String string = okHttpClient.newCall(request).execute().body().string();
-        String msg = new JsonParser().parse(string).getAsJsonObject().get("msg").getAsString();
+        WorkOkHttp.put("/prod-api/api/common/user",token);
         runOnUiThread(()->{
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
         });
 
     }
 
-    private void initUI() {
-        sp = getSharedPreferences("token", Context.MODE_PRIVATE);
-        token = sp.getString("token", "");
+    private void initView() {
         img_avatar = findViewById(R.id.myinfo_img_avatar);
         et_name = findViewById(R.id.myinfo_et_name);
         et_sex = findViewById(R.id.myinfo_et_sex);
         et_phone = findViewById(R.id.myinfo_et_phone);
+        updateImg = findViewById(R.id.my_info_update_img);
+        findViewById(R.id.myinfo_btn_update_info).setOnClickListener(v->{
+            new Thread(()->{
+                UpdateInfo();
+            }).start();
+        });
+        findViewById(R.id.my_info_update_img).setOnClickListener(view -> {
+            View item = getLayoutInflater().inflate(R.layout.item_userinfo_popwindow, null);
+            popupWindow = new PopupWindow(item, ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,true);
+            popupWindow.showAsDropDown(updateImg);
+            item.findViewById(R.id.userInfo_pop_btn1).setOnClickListener(this);
+            item.findViewById(R.id.userInfo_pop_btn2).setOnClickListener(this);
 
+        });
     }
-    private void initHttp() throws IOException {
+    private void initHttp(){
 
-        Request request = new Request.Builder()
-                .header("Authorization",token)
-                .url("http://124.93.196.45:10001/prod-api/api/common/user/getInfo").build();
-        String string = okHttpClient.newCall(request).execute().body().string();
+        String body = WorkOkHttp.get("/prod-api/api/common/user/getInfo", token);
         Gson gson = new Gson();
-        UserInfoBean userInfoBean = gson.fromJson(string, UserInfoBean.class);
-        name = userInfoBean.getUser().getNickName();
-        sex = userInfoBean.getUser().getSex();
-        phone = userInfoBean.getUser().getPhonenumber();
-        img_url = userInfoBean.getUser().getAvatar();
+        userInfoData = gson.fromJson(body, MyInfoBean.class).getUser();
+        initData();
+    }
+    private void initData(){
+        name = userInfoData.getNickName();
+        sex = userInfoData.getSex();
+        phone = userInfoData.getPhonenumber();
+        img_url = userInfoData.getAvatar();
         runOnUiThread(()->{
-            Glide.with(this).load(img_url).into(img_avatar);
+            Glide.with(this)
+                    .load(img_url)
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(1000)))
+                    .into(img_avatar);
             et_name.setText(name);
             et_sex.setText(sex.equals("0") ? "男":"女");
             et_phone.setText(phone);
         });
+
+    }
+
+    private void initPhoto(){
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent,1);
+    }
+    private void takePhoto() {
+        // 执行拍照前，应该先判断SD卡是否存在
+        String SDState = Environment.getExternalStorageState();
+        if (SDState.equals(Environment.MEDIA_MOUNTED)) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// "android.media.action.IMAGE_CAPTURE"
+            File path = Environment
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+            File file = new File(path, "image.jpg");
+            Uri takePhoto = Uri.fromFile(file);
+            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, takePhoto);
+            startActivityForResult(intent, 2);
+        } else {
+            Toast.makeText(getApplicationContext(), "内存卡不存在",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.userInfo_pop_btn1:
+                popupWindow.dismiss();
+                initPhoto();
+                break;
+            case R.id.userInfo_pop_btn2:
+                popupWindow.dismiss();
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode != Activity.RESULT_OK){
+            Log.e("TAG","无数据");
+            return;
+        }
+        switch (requestCode){
+            case 1:
+                Uri uri = data.getData();
+                Cursor cursor = getContentResolver().query(
+                        uri, new String[]{MediaStore.Images.Media.DATA},
+                        null, null, null);
+                if (cursor == null){
+                    return;
+                }
+                cursor.moveToFirst();
+                picPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                Log.e("TAG", "onActivityResult: "+picPath);
+                break;
+        }
+
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

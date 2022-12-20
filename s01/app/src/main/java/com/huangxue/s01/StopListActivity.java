@@ -35,15 +35,12 @@ public class StopListActivity extends AppCompatActivity implements MyStopListAda
         toolbar.setTitle("附近停车场");
         toolbar.setNavigationOnClickListener(v->finish());
 
-        new Thread(()->{try {
-            init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }}).start();
+        new Thread(()->init()).start();
+
 
     }
 
-    private void init() throws IOException {
+    private void init(){
 
         String body = WorkOkHttp.get("/prod-api/api/park/lot/list");
         Gson gson = new Gson();

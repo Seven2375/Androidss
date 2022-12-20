@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical"
+    tools:context=".MedicalCardAddActivity">
+
+    <include layout="@layout/item_toolbar_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <EditText
+            android:id="@+id/bus_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/obk"
+            android:hint="姓名"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/bus_user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/obk"
+            android:hint="手机号码"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/bus_user_staName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/obk"
+            android:hint="起点"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/bus_user_endName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/obk"
+            android:hint="终点"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/bus_user_getOn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/obk"
+            android:hint="上车地点"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/bus_user_getOff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/obk"
+            android:hint="下车地点"
+            android:padding="15dp" />
+
+        <Button
+            android:id="@+id/bus_user_submit"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:text="确定"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

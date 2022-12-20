@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -22,9 +24,56 @@ public class WorkOkHttp {
     public static final OkHttpClient okHttpClient = new OkHttpClient();
     private final static String Url = "http://124.93.196.45:10001";
 
-    public static String get(String path) throws IOException {
+    public static String get(String path){
         Request request = new Request.Builder().url(Url + path).build();
-        String string = okHttpClient.newCall(request).execute().body().string();
+        String string = null;
+        try {
+            string = okHttpClient.newCall(request).execute().body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+    public static String get(String path,String token){
+        Request request = new Request.Builder().url(Url + path).header("Authorization",token).build();
+        String string = null;
+        try {
+            string = okHttpClient.newCall(request).execute().body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+
+    public static String post(String path, JsonObject jsonObject, MediaType type, String token){
+        String string = null;
+        Request request = new Request.Builder()
+                .url(Url + path)
+                .header("Authorization",token)
+                .post(RequestBody.create(type, String.valueOf(jsonObject)))
+                .build();
+        try {
+            string = okHttpClient.newCall(request).execute().body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return string;
+    }
+
+    public static String put(String path, String token){
+        String string = null;
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, "jsonString");
+        Request request = new Request.Builder()
+                .url(Url + path)
+                .put(body)
+                .header("Authorization",token)
+                .build();
+        try {
+            string = okHttpClient.newCall(request).execute().body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return string;
     }
 
