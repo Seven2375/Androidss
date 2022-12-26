@@ -1,5 +1,7 @@
 package com.huangxue.s01.Utils;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -9,12 +11,14 @@ import com.huangxue.s01.Beans.NewsContentBean;
 import com.huangxue.s01.Beans.NewsListBean;
 import com.huangxue.s01.Beans.ServicesListBean;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -60,10 +64,31 @@ public class WorkOkHttp {
         return string;
     }
 
-    public static String put(String path, String token){
+    public static String upload(String path, File file,String token){
+        String string = null;
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file",file.getName(),
+                        RequestBody.create(MediaType.parse("multipart/form-data"),file))
+                .build();
+        Request request = new Request.Builder()
+                .post(requestBody)
+                .header("Authorization",token)
+                .url(Url+path)
+                .build();
+        try {
+            string = okHttpClient.newCall(request).execute().body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("TAG", "upload: "+e.toString());
+        }
+        return string;
+    }
+
+    public static String put(String path, String token,JsonObject jsonObject){
         String string = null;
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "jsonString");
+        RequestBody body = RequestBody.create(mediaType, String.valueOf(jsonObject));
         Request request = new Request.Builder()
                 .url(Url + path)
                 .put(body)
@@ -73,6 +98,24 @@ public class WorkOkHttp {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d("TAG", "put: "+e.toString());
+        }
+        return string;
+    }
+    public static String put(String path, String token){
+        String string = null;
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, "JsonString");
+        Request request = new Request.Builder()
+                .url(Url + path)
+                .put(body)
+                .header("Authorization",token)
+                .build();
+        try {
+            string = okHttpClient.newCall(request).execute().body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("TAG", "put: "+e.toString());
         }
         return string;
     }

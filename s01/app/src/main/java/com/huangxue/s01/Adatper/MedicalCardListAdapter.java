@@ -51,8 +51,11 @@ public class MedicalCardListAdapter extends RecyclerView.Adapter<MedicalCardList
             });
         }
     }
-    private HospitalListAdapter.MyOnClick myOnClick;
-    public void setMyOnClick(HospitalListAdapter.MyOnClick myOnClick){
+    public interface MyOnClick{
+        void onClick(int position);
+    }
+    private MyOnClick myOnClick;
+    public void setMyOnClick(MyOnClick myOnClick){
         this.myOnClick = myOnClick;
     }
 }

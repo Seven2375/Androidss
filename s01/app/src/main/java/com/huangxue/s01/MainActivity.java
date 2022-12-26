@@ -18,6 +18,7 @@ import com.huangxue.s01.Fragment.AllServicesFragment;
 import com.huangxue.s01.Fragment.HomeFragment;
 import com.huangxue.s01.Fragment.MyFragment;
 import com.huangxue.s01.Fragment.NewsFragment;
+import com.huangxue.s01.Fragment.OtherFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity{
         fragmentList.add(new HomeFragment());
         fragmentList.add(new AllServicesFragment());
         fragmentList.add(new NewsFragment());
+        fragmentList.add(new OtherFragment());
         fragmentList.add(new MyFragment());
 
         MainPagerFragment mainPagerFragment = new MainPagerFragment(getSupportFragmentManager(), fragmentList);
@@ -60,6 +62,12 @@ public class MainActivity extends AppCompatActivity{
                         break;
                     case 2:
                         bottomNav.setSelectedItemId(R.id.menu_news);
+                        break;
+                    case 3:
+                        bottomNav.setSelectedItemId(R.id.menu_other);
+                        break;
+                    case 4:
+                        bottomNav.setSelectedItemId(R.id.menu_my);
                         break;
                 }
             }
@@ -81,8 +89,11 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.menu_news:
                         viewpager.setCurrentItem(2);
                         break;
-                    case R.id.menu_my:
+                    case R.id.menu_other:
                         viewpager.setCurrentItem(3);
+                        break;
+                    case R.id.menu_my:
+                        viewpager.setCurrentItem(4);
                         break;
                 }
                 return true;

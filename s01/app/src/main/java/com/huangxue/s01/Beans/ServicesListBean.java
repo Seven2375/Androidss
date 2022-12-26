@@ -1,8 +1,9 @@
 package com.huangxue.s01.Beans;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ServicesListBean {
+public class ServicesListBean implements Serializable {
 
     /**
      * msg : 查询成功
@@ -47,7 +48,7 @@ public class ServicesListBean {
         return rows;
     }
 
-    public class RowsEntity {
+    public class RowsEntity implements Serializable{
         /**
          * serviceType : 车主服务
          * serviceDesc : 查询停车场
@@ -211,7 +212,7 @@ public class ServicesListBean {
             return searchValue;
         }
 
-        public class ParamsEntity {
+        public class ParamsEntity implements Serializable{
         }
     }
 }

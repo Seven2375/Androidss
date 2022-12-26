@@ -1,86 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="#25E8E8E8"
-    android:layout_gravity="center">
+    android:orientation="vertical">
 
 
     <include layout="@layout/item_toolbar_noback" />
 
-    <ImageView
-        android:id="@+id/my_img_avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        tools:src="@drawable/wad" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/my_img_avatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            tools:src="@drawable/wad" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/my_img_avatar"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/my_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="25dp"
+                tools:text="王小明" />
+
+            <TextView
+                android:id="@+id/my_tv_idName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="18dp"
+                tools:text="王小明" />
+
+        </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/my_tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/my_img_avatar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textSize="25dp"
-        tools:text="王小明" />
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/my_tv_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/my_btn_info"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/obk"
-            android:text="个人信息"
-            android:textSize="26dp" />
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:text="😋  个人信息"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/my_btn_order"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/obk"
-            android:text="订单列表"
-            android:textSize="26dp" />
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:text="🛒  订单列表"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/my_btn_repwd"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/obk"
-            android:text="修改密码"
-            android:textSize="26dp" />
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:text="🔧  修改密码"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/my_btn_idea"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/obk"
-            android:text="意见反馈"
-            android:textSize="26dp" />
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:text="📜  意见反馈"
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/my_btn_exit"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/obk"
-            android:text="退出当前账号"
-            android:textColor="#ff0000"
-            android:textSize="26dp" />
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:text="🐎  退出当前账号"
+            android:textColor="#570000"
+            android:textSize="20dp" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

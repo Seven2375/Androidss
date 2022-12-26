@@ -3,7 +3,6 @@ package com.huangxue.s01;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -12,10 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.huangxue.s01.Adatper.HospitalListAdapter;
@@ -29,6 +26,8 @@ public class HospitalHomeActivity extends AppCompatActivity {
 
     private RecyclerView rv;
     private List<HospitalListBean.RowsEntity> rows;
+    private SearchView sv;
+    private HospitalListAdapter hospitalListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +56,12 @@ public class HospitalHomeActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         Log.d("TAG", "initRecyclerView: ");
-        HospitalListAdapter hospitalListAdapter = new HospitalListAdapter(rows, this);
+        hospitalListAdapter = new HospitalListAdapter(rows, this);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayout.VERTICAL);
         rv.setLayoutManager(staggeredGridLayoutManager);
         rv.setAdapter(hospitalListAdapter);
-        hospitalListAdapter.setMyOnClick(i->{
-            int id = rows.get(i).getId();
+        hospitalListAdapter.setMyOnClick((i, rowsEntity)->{
+            int id = rowsEntity.getId();
             String desc = rows.get(i).getBrief();
             Intent intent = new Intent(this, HospitalInfoActivity.class);
             intent.putExtra("id",id);
@@ -81,7 +80,20 @@ public class HospitalHomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_search,menu);
         MenuItem item = menu.findItem(R.id.toolbar_title_search);
-        SearchView sv = (SearchView) MenuItemCompat.getActionView(item);
+        sv = (SearchView) MenuItemCompat.getActionView(item);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                sv.clearFocus();
+                hospitalListAdapter.getFilter().filter(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                hospitalListAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 }

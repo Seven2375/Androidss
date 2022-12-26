@@ -26,6 +26,10 @@ public class MyHomeGridAdapter extends RecyclerView.Adapter<MyHomeGridAdapter.My
         this.datalist = datalist;
         this.id = id;
     }
+    public MyHomeGridAdapter(Context mContext, List<ServicesListBean.RowsEntity> datalist) {
+        this.mContext = mContext;
+        this.datalist = datalist;
+    }
 
 
     @NonNull
@@ -41,18 +45,24 @@ public class MyHomeGridAdapter extends RecyclerView.Adapter<MyHomeGridAdapter.My
     public void onBindViewHolder(@NonNull MyHomeGridAdapter.MyHolder holder, int position) {
         String Url = "http://124.93.196.45:10001";
         ServicesListBean.RowsEntity data = datalist.get(position);
-        if (position==9){
-            Glide.with(mContext)
-                    .load(Url+data.getImgUrl())
-                    .into(holder.img);
-            holder.desc.setText("全部服务");
-        }else {
+        if (id==1){
+            if (position==9){
+                Glide.with(mContext)
+                        .load(Url+data.getImgUrl())
+                        .into(holder.img);
+                holder.desc.setText("全部服务");
+            }else {
+                Glide.with(mContext)
+                        .load(Url+data.getImgUrl())
+                        .into(holder.img);
+                holder.desc.setText(data.getServiceName());
+            }
+        }else{
             Glide.with(mContext)
                     .load(Url+data.getImgUrl())
                     .into(holder.img);
             holder.desc.setText(data.getServiceName());
         }
-
 
     }
 

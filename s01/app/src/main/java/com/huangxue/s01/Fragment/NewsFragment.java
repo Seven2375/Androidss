@@ -2,11 +2,14 @@ package com.huangxue.s01.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,9 +68,21 @@ public class NewsFragment extends Fragment implements OnBannerListener {
         table = view.findViewById(R.id.news_table);
         banner = view.findViewById(R.id.news_banner);
         new Thread(()->{
-            initHttp();
+            initIsOk();
         }).start();
+    }
 
+    private void initIsOk() {
+        String s = WorkOkHttp.get("/prod-api/press/category/list");
+        if (s.contains(错误)){
+            getActivity().runOnUiThread(()->{
+                Toast.makeText(getActivity(), "网络崩溃！", Toast.LENGTH_LONG).show();
+            });
+        }else{
+            new Thread(()->{
+                initHttp();
+            }).start();
+        }
     }
 
     private void initData() {
@@ -123,4 +138,6 @@ public class NewsFragment extends Fragment implements OnBannerListener {
     public void OnBannerClick(int position) {
 
     }
+
+    private String 错误 = "<title>502 错误 - phpstudy</title>";
 }

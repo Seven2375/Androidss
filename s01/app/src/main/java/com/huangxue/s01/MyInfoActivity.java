@@ -28,6 +28,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.huangxue.s01.Beans.MyInfoBean;
 import com.huangxue.s01.Utils.WorkOkHttp;
 
@@ -35,7 +36,7 @@ import java.io.File;
 
 import okhttp3.OkHttpClient;
 
-public class UserInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class MyInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView img_avatar;
     private EditText et_name;
@@ -47,12 +48,14 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private String img_url;
     private SharedPreferences sp;
     private String token;
-    private OkHttpClient okHttpClient = new OkHttpClient();
     private MyInfoBean.UserEntity userInfoData;
     private LinearLayout updateImg;
     private PopupWindow popupWindow;
     private String picPath;
     private String Url = "http://124.93.196.45:10001";
+    private String fileName;
+    private File file;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +80,11 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private void UpdateInfo(){
         JsonObject json_body = new JsonObject();
         json_body.addProperty("nickName",et_name.getText().toString());
+        json_body.addProperty("avatar","/prod-api"+fileName);
         json_body.addProperty("phonenumber",et_phone.getText().toString());
         json_body.addProperty("sex",et_sex.getText().toString().equals("男") ? "0":"1");
-        WorkOkHttp.put("/prod-api/api/common/user",token);
+        String code = WorkOkHttp.put("/prod-api/api/common/user", token,json_body);
+        Log.d("TAG", "UpdateInfo: "+code);
         runOnUiThread(()->{
             Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
         });
@@ -94,6 +99,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         updateImg = findViewById(R.id.my_info_update_img);
         findViewById(R.id.myinfo_btn_update_info).setOnClickListener(v->{
             new Thread(()->{
+                //上传图片
+                UpLoad();
                 UpdateInfo();
             }).start();
         });
@@ -104,9 +111,16 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             popupWindow.showAsDropDown(updateImg);
             item.findViewById(R.id.userInfo_pop_btn1).setOnClickListener(this);
             item.findViewById(R.id.userInfo_pop_btn2).setOnClickListener(this);
-
         });
     }
+    //上传图片
+    private void UpLoad() {
+        String upload = WorkOkHttp.upload("/prod-api/common/upload", file, token);
+//        Log.d("TAG", "onActivityResult: "+upload);
+        fileName = new JsonParser().parse(upload).getAsJsonObject().get("fileName").getAsString();
+//        Log.d("TAG", "onActivityResult: "+ fileName);
+    }
+
     private void initHttp(){
 
         String body = WorkOkHttp.get("/prod-api/api/common/user/getInfo", token);
@@ -121,7 +135,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         img_url = userInfoData.getAvatar();
         runOnUiThread(()->{
             Glide.with(this)
-                    .load(img_url)
+                    .load(Url+img_url)
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(1000)))
                     .into(img_avatar);
             et_name.setText(name);
@@ -131,63 +145,55 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void initPhoto(){
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent,1);
-    }
-    private void takePhoto() {
-        // 执行拍照前，应该先判断SD卡是否存在
-        String SDState = Environment.getExternalStorageState();
-        if (SDState.equals(Environment.MEDIA_MOUNTED)) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// "android.media.action.IMAGE_CAPTURE"
-            File path = Environment
-                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-            File file = new File(path, "image.jpg");
-            Uri takePhoto = Uri.fromFile(file);
-            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, takePhoto);
-            startActivityForResult(intent, 2);
-        } else {
-            Toast.makeText(getApplicationContext(), "内存卡不存在",
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.userInfo_pop_btn1:
                 popupWindow.dismiss();
-                initPhoto();
+                //跳转到相册
+                Intent intent = new Intent();
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(intent, 0);
                 break;
             case R.id.userInfo_pop_btn2:
                 popupWindow.dismiss();
                 break;
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode != Activity.RESULT_OK){
-            Log.e("TAG","无数据");
-            return;
-        }
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
-            case 1:
-                Uri uri = data.getData();
-                Cursor cursor = getContentResolver().query(
-                        uri, new String[]{MediaStore.Images.Media.DATA},
-                        null, null, null);
-                if (cursor == null){
-                    return;
+            case 0:
+                if (data != null) {
+                    if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+                        //获取图片的URI地址
+                        Uri selectedImage = data.getData();
+                        img_avatar.setImageURI(selectedImage);
+                        //调用URL转file方法
+                        file = uriToFile(selectedImage);
+                        //上传图片
+                        break;
+                    }
                 }
-                cursor.moveToFirst();
-                picPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-                Log.e("TAG", "onActivityResult: "+picPath);
                 break;
         }
-
-
-        super.onActivityResult(requestCode, resultCode, data);
+    }
+    private File uriToFile(Uri uri) {
+        String img_path;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor actualimagecursor = managedQuery(uri, proj, null,
+                null, null);
+        if (actualimagecursor == null) {
+            img_path = uri.getPath();
+        } else {
+            int actual_image_column_index = actualimagecursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            actualimagecursor.moveToFirst();
+            img_path = actualimagecursor.getString(actual_image_column_index);
+        }
+        File toFile = new File(img_path);
+        return toFile;
     }
 }

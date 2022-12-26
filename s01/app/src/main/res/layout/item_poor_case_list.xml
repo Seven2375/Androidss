@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey"
+    android:padding="5dp"
+    tools:context=".StopListActivity">
+
+    <LinearLayout
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:background="@drawable/obk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:id="@+id/poor_case_list_item_img"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            tools:src="@drawable/wad"/>
+
+        <TextView
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/poor_case_list_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            tools:text="标题"/>
+
+        <TextView
+            android:layout_marginStart="5dp"
+            android:id="@+id/poor_case_list_item_desc"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            tools:text="简介"/>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

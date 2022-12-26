@@ -2,11 +2,11 @@ package com.huangxue.s01;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,7 +18,6 @@ import com.huangxue.s01.Adatper.LookRoomListAdapter;
 import com.huangxue.s01.Beans.LookRoomListBean;
 import com.huangxue.s01.Utils.WorkOkHttp;
 
-import java.io.IOException;
 import java.util.List;
 
 public class LookRoomHomeActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, LookRoomListAdapter.MyOnClick {
@@ -27,6 +26,8 @@ public class LookRoomHomeActivity extends AppCompatActivity implements RadioGrou
     private List<LookRoomListBean.RowsEntity> rows;
     private RecyclerView rv;
     private ProgressBar pb;
+    private SearchView search;
+    private LookRoomListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +46,16 @@ public class LookRoomHomeActivity extends AppCompatActivity implements RadioGrou
             Gson gson = new Gson();
             rows = gson.fromJson(body, LookRoomListBean.class).getRows();
             runOnUiThread(()-> {
-                LookRoomListAdapter adapter = new LookRoomListAdapter(rows, this);
-                rv.setLayoutManager(new LinearLayoutManager(this));
-                rv.setAdapter(adapter);
-                adapter.setMyOnClick(this);
-                pb.setVisibility(View.GONE);
+                initList();
             });
 
+    }
+    private void initList(){
+        adapter = new LookRoomListAdapter(rows, this);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(adapter);
+        adapter.setMyOnClick(this);
+        pb.setVisibility(View.GONE);
     }
 
     private void initView() {
@@ -59,6 +63,19 @@ public class LookRoomHomeActivity extends AppCompatActivity implements RadioGrou
         rg = findViewById(R.id.look_room_rg);
         pb = findViewById(R.id.look_room_pb);
         rg.setOnCheckedChangeListener(this);
+        SearchView sv = findViewById(R.id.look_room_search);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
         RadioButton rb1 = findViewById(R.id.look_room_rb1);
         rb1.setChecked(true);
     }
@@ -94,10 +111,11 @@ public class LookRoomHomeActivity extends AppCompatActivity implements RadioGrou
     }
 
     @Override
-    public void onClick(int position) {
-        int id = rows.get(position).getId();
+    public void onClick(int position, LookRoomListBean.RowsEntity rowsEntity) {
+        int id = rowsEntity.getId();
         Intent intent = new Intent(this,LookRoomInfoActivity.class);
         intent.putExtra("id",id);
         startActivity(intent);
     }
+
 }

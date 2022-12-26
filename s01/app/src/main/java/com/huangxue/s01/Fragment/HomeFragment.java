@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,12 +35,16 @@ import com.huangxue.s01.Beans.BannerListBean;
 import com.huangxue.s01.Beans.NewsClassBean;
 import com.huangxue.s01.Beans.ServicesListBean;
 import com.huangxue.s01.BusHomeActivity;
+import com.huangxue.s01.FilmHomeActivity;
 import com.huangxue.s01.HospitalHomeActivity;
 import com.huangxue.s01.LoginActivity;
 import com.huangxue.s01.LookRoomHomeActivity;
 import com.huangxue.s01.NewsInfoActivity;
+import com.huangxue.s01.NewsSearchActivity;
+import com.huangxue.s01.PetHomeActivity;
 import com.huangxue.s01.R;
 import com.huangxue.s01.StopListActivity;
+import com.huangxue.s01.TrafficHomeActivity;
 import com.huangxue.s01.Utils.WorkOkHttp;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -76,33 +83,84 @@ public class HomeFragment extends Fragment implements OnBannerListener, MyHomeGr
         toolbar.setTitle("首页");
         pBar = view.findViewById(R.id.item_progress);
 
-        try {
-            initData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        initView();
+        new Thread(()->{
+            initIsOk();
+        }).start();
+
+
         return view;
 
     }
-        private void initData() throws IOException {
+
+    private void initIsOk() {
+        String s = WorkOkHttp.get("/prod-api/press/category/list");
+//        Log.e("TAG", "initIsOk: "+s);
+        if (s.contains(错误)){
+            getActivity().runOnUiThread(()->{
+                Toast.makeText(getActivity(), "网络崩溃！", Toast.LENGTH_LONG).show();
+            });
+        } else{
             new Thread(()->{
-                try {
-                    imgUrlList = WorkOkHttp.getBannerImgUrl(mainUrl+"/prod-api/api/rotation/list?type=2");
-                    bannerDatas = WorkOkHttp.getBannerDatas(mainUrl + "/prod-api/api/rotation/list");
-                    grid_rows = WorkOkHttp.getHomeServicesListDatas(mainUrl + "/prod-api/api/service/list");
-                    newsClassList = WorkOkHttp.get("/prod-api/press/category/list");
-                    tokenCode = WorkOkHttp.get("/prod-api/api/common/user/getInfo", token);
+                tokenCode = WorkOkHttp.get("/prod-api/api/common/user/getInfo", token);
+                int code = new JsonParser().parse(tokenCode).getAsJsonObject().get("code").getAsInt();
+                if (code != 200){
                     getActivity().runOnUiThread(()->{
-                        initBanner();
-                        initGrid();
-                        initViewPager();
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("提醒")
+                                .setMessage("登录已过期，请重新登录")
+                                .setPositiveButton("确定",(d,w)->{
+                                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                                }).create().show();
                     });
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                }else{
+                    try {
+                        initData();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }).start();
-
         }
+    }
+
+    private void initView() {
+        SearchView sv = view.findViewById(R.id.home_search);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Intent intent = new Intent(getActivity(), NewsSearchActivity.class);
+                intent.putExtra("s",s);
+                getActivity().startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
+
+    private void initData() throws IOException {
+        new Thread(()->{
+            try {
+                imgUrlList = WorkOkHttp.getBannerImgUrl(mainUrl+"/prod-api/api/rotation/list?type=2");
+                bannerDatas = WorkOkHttp.getBannerDatas(mainUrl + "/prod-api/api/rotation/list");
+                grid_rows = WorkOkHttp.getHomeServicesListDatas(mainUrl + "/prod-api/api/service/list");
+                newsClassList = WorkOkHttp.get("/prod-api/press/category/list");
+                getActivity().runOnUiThread(()->{
+                    initBanner();
+                    initGrid();
+                    initViewPager();
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+    }
 
     private void initViewPager() {
         viewpager = view.findViewById(R.id.home_viewpager);
@@ -128,15 +186,6 @@ public class HomeFragment extends Fragment implements OnBannerListener, MyHomeGr
             gridview.setLayoutManager(gridLayoutManager);
             gridview.setAdapter(gridAdapter);
             gridAdapter.setOnItemClickListener(this);
-            int code = new JsonParser().parse(tokenCode).getAsJsonObject().get("code").getAsInt();
-            if (code != 200){
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("提醒")
-                        .setMessage("登录已过期，请重新登录")
-                        .setPositiveButton("确定",(d,w)->{
-                            startActivity(new Intent(getActivity(), LoginActivity.class));
-                        }).create().show();
-            }
 
     }
 
@@ -167,18 +216,24 @@ public class HomeFragment extends Fragment implements OnBannerListener, MyHomeGr
             ViewPager main_viewpager = getActivity().findViewById(R.id.main_viewpager);
             main_viewpager.setCurrentItem(1);
         }
-        switch (grid_rows.get(position).getId()){
-            case 17:
+        switch (grid_rows.get(position).getServiceName()){
+            case "停哪儿":
                 startActivity(new Intent(getActivity(), StopListActivity.class));
                 break;
-            case 20:
+            case "找房子":
                 startActivity(new Intent(getActivity(), LookRoomHomeActivity.class));
                 break;
-            case 5:
+            case "门诊预约":
                 startActivity(new Intent(getActivity(), HospitalHomeActivity.class));
                 break;
-            case 3:
+            case "智慧巴士":
                 startActivity(new Intent(getActivity(), BusHomeActivity.class));
+                break;
+            case "看电影":
+                startActivity(new Intent(getActivity(), FilmHomeActivity.class));
+                break;
+            case "智慧交管":
+                startActivity(new Intent(getActivity(), TrafficHomeActivity.class));
                 break;
         }
     }
@@ -193,4 +248,6 @@ public class HomeFragment extends Fragment implements OnBannerListener, MyHomeGr
             }
         }
 
+
+     private String 错误 = "<title>502 错误 - phpstudy</title>";
 }

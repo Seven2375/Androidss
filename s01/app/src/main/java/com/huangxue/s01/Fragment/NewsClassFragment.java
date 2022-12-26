@@ -76,7 +76,7 @@ public class NewsClassFragment extends Fragment {
         newsClassList.setAdapter(adapter);
         adapter.setOnItemClickListener(new MyNewsListAdapter.OnRecyclerItemClickListener() {
             @Override
-            public void onClick(int position) {
+            public void onClick(int position,NewsListBean.RowsEntity data) {
                 Intent intent = new Intent(getActivity(), NewsInfoActivity.class);
                 intent.putExtra("id",rows.get(position).getId());
                 startActivity(intent);

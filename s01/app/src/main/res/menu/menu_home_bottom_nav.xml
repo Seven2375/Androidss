@@ -10,6 +10,9 @@
     <item android:id="@+id/menu_news"
         android:icon="@drawable/news_bottom"
         android:title="新闻"/>
+    <item android:id="@+id/menu_other"
+        android:icon="@drawable/other_bottom"
+        android:title="其它"/>
     <item android:id="@+id/menu_my"
         android:icon="@drawable/my_bottom"
         android:title="我的"/>

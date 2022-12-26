@@ -11,6 +11,7 @@
     <include layout="@layout/item_toolbar_back" />
 
     <SearchView
+        android:id="@+id/look_room_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/obk"

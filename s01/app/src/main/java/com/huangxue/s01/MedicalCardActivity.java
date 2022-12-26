@@ -65,7 +65,7 @@ public class MedicalCardActivity extends AppCompatActivity {
         MedicalCardListAdapter medicalCardListAdapter = new MedicalCardListAdapter(this,rows);
         cardList.setLayoutManager(new LinearLayoutManager(this));
         cardList.setAdapter(medicalCardListAdapter);
-        medicalCardListAdapter.setMyOnClick(i->{
+        medicalCardListAdapter.setMyOnClick((i)->{
 
         });
     }
