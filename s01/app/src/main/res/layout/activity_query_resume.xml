@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical"
+    tools:context=".Activity.Hospital.MedicalCardAddActivity">
+
+    <include layout="@layout/item_toolbar_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/query_resume_experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/obk"
+                android:hint="工作经历"
+                android:padding="15dp" />
+
+            <TextView
+                android:id="@+id/query_resume_mostEducation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/obk"
+                android:hint="最高学历"
+                android:padding="15dp" />
+
+            <TextView
+                android:id="@+id/query_resume_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/obk"
+                android:hint="现居住地"
+                android:padding="15dp" />
+
+            <TextView
+                android:id="@+id/query_resume_positionId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/obk"
+                android:hint="期望职位"
+                android:padding="15dp" />
+
+            <TextView
+                android:id="@+id/query_resume_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/obk"
+                android:hint="期望薪资"
+                android:padding="15dp" />
+
+            <TextView
+                android:id="@+id/query_resume_education"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/obk"
+                android:hint="教育经历"
+                android:padding="15dp" />
+
+            <TextView
+                android:id="@+id/query_resume_individualResume"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/obk"
+                android:hint="个人简介"
+                android:maxLines="5"
+                android:padding="15dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

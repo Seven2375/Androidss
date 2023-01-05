@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.huangxue.s01.Beans.DoctorListBean;
 import com.huangxue.s01.R;
+import com.huangxue.s01.Utils.Tools;
 
 import java.util.List;
 
@@ -35,11 +36,8 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        String Url  = "http://124.93.196.45:10001";
         DoctorListBean.RowsEntity data = rows.get(position);
-        Glide.with(mContext)
-                .load(Url+data.getAvatar())
-                .into(holder.img);
+        Tools.setImg(mContext,data.getAvatar(),holder.img);
         holder.name.setText(data.getName());
         holder.jobName.setText("职称："+data.getJobName());
         holder.goodAt.setText("擅长："+data.getGoodAt());

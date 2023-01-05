@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/grey"
     android:padding="5dp"
-    tools:context=".StopListActivity">
+    tools:context=".Activity.Stop.StopListActivity">
 
     <LinearLayout
         android:padding="5dp"

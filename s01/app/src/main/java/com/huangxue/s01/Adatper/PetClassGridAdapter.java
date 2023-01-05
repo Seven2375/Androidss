@@ -52,7 +52,7 @@ public class PetClassGridAdapter extends RecyclerView.Adapter<PetClassGridAdapte
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.home_grid_item_img);
-            name = itemView.findViewById(R.id.home_grid_item_desc);
+            name = itemView.findViewById(R.id.home_grid_item_title);
 
             itemView.setOnClickListener(view -> {
                 if (myOnClick!=null){

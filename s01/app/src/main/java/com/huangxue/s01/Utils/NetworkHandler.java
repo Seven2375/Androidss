@@ -8,7 +8,6 @@ import android.os.Message;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.huangxue.s01.MainActivity;
 
 import java.io.File;
 import java.io.IOException;

@@ -3,32 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/grey"
     android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/obk">
+        android:background="@drawable/obk"
+        android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/doctor_list_item_img"
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:layout_weight="2"
-            tools:src="@drawable/a001" />
+            app:cardCornerRadius="10dp"
+            android:layout_height="125dp"
+            android:layout_weight="2.3">
+
+            <ImageView
+                android:id="@+id/doctor_list_item_img"
+                android:layout_width="wrap_content"
+                android:scaleType="fitXY"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:src="@drawable/a001" />
+
+
+        </androidx.cardview.widget.CardView>
+
 
         <LinearLayout
+            android:layout_marginStart="5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:orientation="vertical">
 
             <TextView
@@ -66,8 +78,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/doctor_list_item_practiceNo"
@@ -76,10 +88,10 @@
                     tools:text="执业编号" />
 
                 <TextView
-                    android:layout_marginTop="5dp"
                     android:id="@+id/doctor_list_item_workingYears"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     tools:text="从业年限" />
 
             </LinearLayout>
@@ -91,6 +103,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp" />
 
 </LinearLayout>

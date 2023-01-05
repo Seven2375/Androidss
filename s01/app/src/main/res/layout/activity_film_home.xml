@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context=".FilmHomeActivity">
+    tools:context=".Activity.Film.FilmHomeActivity">
 
     <include layout="@layout/item_toolbar_back"/>
 

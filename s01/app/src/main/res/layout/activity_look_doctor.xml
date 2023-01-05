@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical"
-    tools:context=".LookDoctorActivity">
+    tools:context=".Activity.PetHospotal.LookDoctorActivity">
 
     <include layout="@layout/item_toolbar_back"/>
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context=".StopInfoActivity">
+    tools:context=".Activity.Stop.StopInfoActivity">
 
     <include layout="@layout/item_toolbar_back"/>
 

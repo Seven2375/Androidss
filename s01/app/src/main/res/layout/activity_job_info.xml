@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/item_toolbar_back"/>
+
+    <LinearLayout
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginBottom="8dp"
+            android:id="@+id/job_info_professionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:textColor="#323232"
+            android:textStyle="bold"
+            tools:text="职位名称"/>
+
+        <TextView
+            android:layout_marginBottom="8dp"
+            android:id="@+id/job_info_salary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="1.5万-2.2万"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textColor="#F82515"/>
+
+        <LinearLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/job_info_need"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                tools:text="职位需求"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/job_info_contacts"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                tools:text="联系人"/>
+            <TextView
+                android:id="@+id/job_info_address"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                tools:text="公司地点"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_marginBottom="18dp"
+            android:id="@+id/job_info_obligation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="职位描述"/>
+
+        <View
+            android:layout_marginBottom="18dp"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:background="#000000"/>
+
+        <TextView
+            android:layout_marginBottom="8dp"
+            android:id="@+id/job_info_companyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:textColor="#323232"
+            android:textStyle="bold"
+            tools:text="公司名称"/>
+
+        <TextView
+            android:layout_marginBottom="100dp"
+            android:id="@+id/job_info_introductory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="公司简介"/>
+
+        <Button
+            android:id="@+id/job_info_btn"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:text="投简历"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

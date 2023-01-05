@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context=".NewsInfoActivity">
+    tools:context=".Activity.News.NewsInfoActivity">
 
     <include layout="@layout/item_toolbar_back" />
 

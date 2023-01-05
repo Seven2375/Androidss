@@ -5,14 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PetHomeActivity">
+    tools:context=".Activity.PetHospotal.PetHomeActivity">
 
     <include layout="@layout/item_toolbar_back"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pet_home_petClassGrid"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pet_home_petClassGrid"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/pet_home_myAskListTitle"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:text="我的问诊"
+                android:layout_marginStart="5dp"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pet_home_myAskList"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/pet_home_publicAskListTitle"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:text="网友案例"
+                android:layout_marginStart="5dp"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pet_home_publicAskList"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

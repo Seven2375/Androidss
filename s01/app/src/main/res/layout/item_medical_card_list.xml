@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="120dp"
-    android:background="@color/white">
+    android:layout_height="120dp">
 
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="300dp"
         android:layout_height="110dp"
         android:background="@drawable/obk_hhh"

@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        String s = "/dev-api/profile/upload/2022/03/12/b3134a30-daac-4a85-acb1-8907b17122c4.jpeg";
+        System.out.println(s.replace("dev","prod"));
     }
 }

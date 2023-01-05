@@ -80,7 +80,7 @@ public class WorkOkHttp {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("TAG", "upload: "+e.toString());
+            Log.e("TAG", "upload: "+e.toString());
         }
         return string;
     }
@@ -98,7 +98,7 @@ public class WorkOkHttp {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("TAG", "put: "+e.toString());
+            Log.e("TAG", "put: "+e.toString());
         }
         return string;
     }
@@ -118,7 +118,7 @@ public class WorkOkHttp {
             Log.d("TAG", "put: "+e.toString());
         }
         return string;
-    }
+}
 
     public static List<ServicesListBean.RowsEntity> getHomeServicesListDatas(String url) throws IOException {
         Request request = new Request.Builder().url(url).build();

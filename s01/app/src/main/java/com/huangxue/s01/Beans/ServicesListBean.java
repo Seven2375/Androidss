@@ -48,7 +48,7 @@ public class ServicesListBean implements Serializable {
         return rows;
     }
 
-    public class RowsEntity implements Serializable{
+    public static class RowsEntity implements Serializable{
         /**
          * serviceType : 车主服务
          * serviceDesc : 查询停车场
@@ -83,6 +83,26 @@ public class ServicesListBean implements Serializable {
         private String updateBy;
         private int id;
         private String searchValue;
+
+        public RowsEntity(String serviceType, String serviceName, String imgUrl,int id) {
+            this.serviceType = serviceType;
+            this.serviceName = serviceName;
+            this.imgUrl = imgUrl;
+            this.id = id;
+
+            this.serviceDesc = null;
+            this.isRecommend = "N";
+            this.link = null;
+            this.updateTime = null;
+            this.remark = null;
+            this.pid = 0;
+            this.sort = 0;
+            this.params = null;
+            this.createBy = null;
+            this.createTime = null;
+            this.updateBy = null;
+            this.searchValue = null;
+        }
 
         public void setServiceType(String serviceType) {
             this.serviceType = serviceType;
