@@ -54,6 +54,25 @@
                 android:layout_marginBottom="5dp"
                 android:padding="8dp" />
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/lawyerHome_ask"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:src="@drawable/lawyer_ask"
+                    android:scaleType="centerCrop"
+                    android:paddingTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"/>
+            </androidx.cardview.widget.CardView>
+
+
+
             <LinearLayout
                 android:id="@+id/lawyerHome_top10Title"
                 android:layout_width="match_parent"

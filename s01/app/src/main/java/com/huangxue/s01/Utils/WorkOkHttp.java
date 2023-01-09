@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -25,8 +26,11 @@ import okhttp3.RequestBody;
 
 public class WorkOkHttp {
 
-    public static final OkHttpClient okHttpClient = new OkHttpClient();
+    public static final OkHttpClient okHttpClient = new OkHttpClient().newBuilder().connectTimeout(60000, TimeUnit.MILLISECONDS)
+            .readTimeout(60000,TimeUnit.MILLISECONDS)
+            .build();
     private final static String Url = "http://124.93.196.45:10001";
+    private static final String TAG = "WorkOkHttp";
 
     public static String get(String path){
         Request request = new Request.Builder().url(Url + path).build();
@@ -34,6 +38,7 @@ public class WorkOkHttp {
         try {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
+            Log.e(TAG, "错误: "+e.toString());
             e.printStackTrace();
         }
         return string;
@@ -44,6 +49,7 @@ public class WorkOkHttp {
         try {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
+            Log.e(TAG, "错误: "+e.toString());
             e.printStackTrace();
         }
         return string;
@@ -59,6 +65,7 @@ public class WorkOkHttp {
         try {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
+            Log.e(TAG, "错误: "+e.toString());
             e.printStackTrace();
         }
         return string;
@@ -80,7 +87,7 @@ public class WorkOkHttp {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("TAG", "upload: "+e.toString());
+            Log.e(TAG, "错误: "+e.toString());
         }
         return string;
     }
@@ -98,7 +105,7 @@ public class WorkOkHttp {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("TAG", "put: "+e.toString());
+            Log.e(TAG, "错误: "+e.toString());
         }
         return string;
     }
@@ -115,10 +122,10 @@ public class WorkOkHttp {
             string = okHttpClient.newCall(request).execute().body().string();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d("TAG", "put: "+e.toString());
+            Log.e(TAG, "错误: "+e.toString());
         }
         return string;
-}
+    }
 
     public static List<ServicesListBean.RowsEntity> getHomeServicesListDatas(String url) throws IOException {
         Request request = new Request.Builder().url(url).build();

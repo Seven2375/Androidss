@@ -112,9 +112,11 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:layout_margin="5dp"
                         android:id="@+id/lawyer_list_item_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/obk"
                         android:layout_gravity="bottom"
                         android:text="咨询" />
 
@@ -133,3 +135,4 @@
 
 
 </LinearLayout>
+

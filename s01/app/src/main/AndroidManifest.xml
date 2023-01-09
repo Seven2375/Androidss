@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Lawyer.LawyerListActivity"></activity>
+        <activity android:name=".Activity.Takeaway.TakeawaySellerInfoActivity"></activity>
+        <activity android:name=".Activity.Takeaway.TakeawayMainActivity" />
+        <activity android:name=".Activity.Lawyer.LawyerAskListActivity" />
+        <activity android:name=".Activity.Lawyer.LawyerAskInfoActivity" />
+        <activity android:name=".Activity.Lawyer.LawyerListActivity" />
         <activity android:name=".Activity.Lawyer.LawyerInfoActivity" />
         <activity android:name=".Activity.Lawyer.LawyerAskHomeActivity" />
         <activity android:name=".Activity.Subway.SubwayAllStationListActivity" />

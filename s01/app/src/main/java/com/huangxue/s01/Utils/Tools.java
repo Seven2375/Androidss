@@ -21,7 +21,10 @@ public class Tools {
             imgUrl = "/prod-api"+imgUrl;
         }
 
-        Glide.with(context).load(Url+imgUrl).into(imageView);
+        Glide.with(context)
+                .load(Url+imgUrl)
+                .circleCrop()
+                .into(imageView);
     }
 
 }

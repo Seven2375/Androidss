@@ -46,6 +46,7 @@ public class LawyerAskHomeActivity extends AppCompatActivity implements MyOnClic
     private RecyclerView goodReViewRv;
     private LinearLayout top10Title;
     private TextView allLawyer;
+    private ImageView ask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class LawyerAskHomeActivity extends AppCompatActivity implements MyOnClic
 
         runOnUiThread(() -> {
             initBanner();
+            ask.setVisibility(View.VISIBLE);
             initExpertise();
             initTop10();
             top10Title.setVisibility(View.VISIBLE);
@@ -150,6 +152,11 @@ public class LawyerAskHomeActivity extends AppCompatActivity implements MyOnClic
         allLawyer = findViewById(R.id.lawyerHome_allLawyer);
         allLawyer.setOnClickListener(v->{
             startActivity(new Intent(this,LawyerListActivity.class));
+        });
+        ask = findViewById(R.id.lawyerHome_ask);
+        ask.setOnClickListener(v->{
+            Intent intent = new Intent(this,LawyerAskListActivity.class);
+            startActivity(intent);
         });
     }
 

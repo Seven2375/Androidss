@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.huangxue.s01.Activity.Takeaway.TakeawayMainActivity;
 import com.huangxue.s01.Adatper.ServicesGridAdapter;
 import com.huangxue.s01.Beans.ServicesListBean;
 import com.huangxue.s01.Activity.Bus.BusHomeActivity;
@@ -106,6 +107,9 @@ public class ServicesQueryDialogFragment extends DialogFragment implements Servi
                 break;
             case "律师咨询":
                 getActivity().startActivity(new Intent(getActivity(), LawyerAskHomeActivity.class));
+                break;
+            case "外卖订餐":
+                getActivity().startActivity(new Intent(getActivity(), TakeawayMainActivity.class));
                 break;
         }
     }

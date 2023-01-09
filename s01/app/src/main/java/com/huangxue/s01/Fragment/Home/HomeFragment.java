@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+import com.huangxue.s01.Activity.Takeaway.TakeawayMainActivity;
 import com.huangxue.s01.Adatper.HotNewsAdapter;
 import com.huangxue.s01.Adatper.ServicesGridAdapter;
 import com.huangxue.s01.Adatper.NewsClassPagerFragment;
@@ -259,6 +260,9 @@ public class HomeFragment extends Fragment implements OnBannerListener, Services
                 break;
             case "城市地铁":
                 startActivity(new Intent(getActivity(), SubwayHomeActivity.class));
+                break;
+            case "外卖订餐":
+                startActivity(new Intent(getActivity(), TakeawayMainActivity.class));
                 break;
         }
     }

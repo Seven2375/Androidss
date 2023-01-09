@@ -41,6 +41,8 @@ public class SubwayInfoTimeLineAdapter extends RecyclerView.Adapter<SubwayInfoTi
             if (lineName.equals(data.getName())){
                 holder.img.setBackgroundResource(R.drawable.shape_oval_orange);
             }
+        }else{
+            holder.img.setBackgroundResource(R.drawable.shape_oval_black);
         }
         holder.name.setText(data.getName());
     }

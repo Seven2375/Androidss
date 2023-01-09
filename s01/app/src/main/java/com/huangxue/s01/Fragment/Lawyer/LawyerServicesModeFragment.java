@@ -82,8 +82,8 @@ public class LawyerServicesModeFragment extends Fragment {
 
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        LocalDate startTime = LocalDate.parse(simpleDateFormat.format(date));
-        LocalDate endTime = LocalDate.parse(data.getWorkStartAt());
+        LocalDate startTime = LocalDate.parse(data.getWorkStartAt());
+        LocalDate endTime = LocalDate.parse(simpleDateFormat.format(date));
 
         Period period = Period.between(startTime, endTime);
 

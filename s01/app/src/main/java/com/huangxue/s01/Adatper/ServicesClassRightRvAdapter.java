@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.huangxue.s01.Activity.Takeaway.TakeawayMainActivity;
 import com.huangxue.s01.Beans.ServicesListBean;
 import com.huangxue.s01.Activity.Bus.BusHomeActivity;
 import com.huangxue.s01.Activity.Film.FilmHomeActivity;
@@ -97,6 +98,9 @@ public class ServicesClassRightRvAdapter extends RecyclerView.Adapter<ServicesCl
                 break;
             case "律师咨询":
                 mContext.startActivity(new Intent(mContext, LawyerAskHomeActivity.class));
+                break;
+            case "外卖订餐":
+                mContext.startActivity(new Intent(mContext, TakeawayMainActivity.class));
                 break;
         }
 }

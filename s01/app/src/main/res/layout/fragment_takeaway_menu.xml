@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/takeawayMenu_left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="#f6f6f6"
+            android:layout_height="match_parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/takeawayMenu_right"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            tools:background="@color/meituan"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="50dp"
+        app:cardElevation="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="22dp"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="#292929"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="22dp"
+                    android:paddingTop="2dp"
+                    android:paddingStart="30dp"
+                    tools:text="￥"/>
+
+                <TextView
+                    android:id="@+id/takeawayMenu_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="22dp"
+                    android:paddingTop="2dp"
+                    tools:text="12"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/takeawayMenu_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="去结算"
+                    android:textStyle="bold"
+                    android:background="@drawable/obk_upright_bottomright_meituan"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
